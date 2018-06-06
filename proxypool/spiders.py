@@ -52,18 +52,18 @@ class SpiderMeta(type):
         return type.__new__(cls, *args, **kwargs)
 
 
-class Proxy360Spider(metaclass=SpiderMeta):
-    start_url = 'http://www.proxy360.cn/default.aspx'
+# class Proxy360Spider(metaclass=SpiderMeta):
+    # start_url = 'http://www.proxy360.cn/default.aspx'
 
-    def gets(self, page_total=None):
-        ans = []
-        soup = get_page(self.start_url)
-        for proxy in soup.find_all('div', {'class': 'proxylistitem'}):
-            item = proxy.find_all('span', {"class": "tbBottomLine"})
-            ip = item[0].get_text().replace('\r\n', '').replace(' ', '')
-            port = item[1].get_text().replace('\r\n', '').replace(' ', '')
-            ans.append(':'.join([ip, port]))
-        return ans
+    # def gets(self, page_total=None):
+        # ans = []
+        # soup = get_page(self.start_url)
+        # for proxy in soup.find_all('div', {'class': 'proxylistitem'}):
+            # item = proxy.find_all('span', {"class": "tbBottomLine"})
+            # ip = item[0].get_text().replace('\r\n', '').replace(' ', '')
+            # port = item[1].get_text().replace('\r\n', '').replace(' ', '')
+            # ans.append(':'.join([ip, port]))
+        # return ans
 
 
 class Daili666Spider(metaclass=SpiderMeta):
