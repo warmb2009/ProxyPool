@@ -1,4 +1,5 @@
-from .conf import HEADERS
+from .conf import HEADERS, HOST, WEB_PORT
+from .webapi import get_conn
 import requests
 from bs4 import BeautifulSoup
 import asyncio
@@ -10,7 +11,28 @@ def get_page(url):
     :param url: web url
     :return: BeautifulSoup
     """
-    r = requests.get(url, headers=HEADERS)
+
+    USE_PROXY_TO_GET_PROXY = False
+
+    r = None
+
+    if USE_PROXY_TO_GET_PROXY is True:
+        count_url = 'http://' + str(HOST) + ':' + str(WEB_PORT) + '/count'
+        size = int(requests.get(count_url).text)
+        
+        if size is not 0 :
+
+            proxy_url = 'http://' + str(HOST) + ':' + str(WEB_PORT) + '/get'
+            proxys_str = 'http://' + str(requests.get(proxy_url).text)
+            proxies = {
+                'http' : proxys_str,
+            }
+            r = requests.get(url, headers=HEADERS, proxys=proxies)
+        else:
+            r = requests.get(url, headers=HEADERS)
+    else:
+        r = requests.get(url, headers=HEADERS)
+        
     try:
         soup = BeautifulSoup(r.content.decode("utf-8"), 'lxml')
     except UnicodeDecodeError:
