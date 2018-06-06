@@ -3,6 +3,7 @@ HOST = 'localhost'
 # Redis PORT
 PORT = 6379
 
+WEB_PORT = 5000
 # Redis 中存放代理池的 Set 名
 POOL_NAME = 'proxies'
 
