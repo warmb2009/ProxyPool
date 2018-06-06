@@ -4,3 +4,4 @@ bs4
 flask
 redis
 lxml
+blessings
